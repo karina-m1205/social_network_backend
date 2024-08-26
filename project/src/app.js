@@ -5,6 +5,7 @@ const connectToDB = require(path.join(__dirname, "./core/db.js"));
 const usersRouter = require(path.join(__dirname, "./api/users.js"));
 const postsRouter = require(path.join(__dirname, "./api/posts.js"));
 const commentsRouter = require(path.join(__dirname, "./api/comments.js"));
+const likesRouter = require(path.join(__dirname, "./api/likes.js"));
 const feedRouter = require(path.join(__dirname, "./api/feed.js"));
 const auth = require(path.join(__dirname, "./core/auth.js"));
 
@@ -24,7 +25,8 @@ app.post("/login", usersRouter);
 app.use("/users", auth.verifyToken, usersRouter);
 app.use("/posts", auth.verifyToken, postsRouter);
 app.use("/comments", auth.verifyToken, commentsRouter);
-// app.use("/feed", feedRouter);
+app.use("/likes", auth.verifyToken, likesRouter);
+// app.use("/feed", auth.verifyToken, feedRouter);
 
 
 app.listen(PORT, () => {

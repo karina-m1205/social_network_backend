@@ -12,7 +12,10 @@ const schema = new Schema({
     },
     text: String,
     dateTime: Date,
-    likes: Number,
+    likes: {
+        type: Number,
+        default: 0
+    },
 });
 
 const comments = mongoose.model("comments", schema);
