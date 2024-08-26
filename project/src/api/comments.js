@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     try {
-        const userId = req.userId;
+        const userId = req.userId;        
         const commentData = req.body;
         try {
             const result = await commentsSecvice.createComment(userId, commentData);
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
     try {
         const commentId = req.params.id;
         try {
-            const result = await commentsSecvice.getCommentById(commentId);
+            const result = await commentsSecvice.getCommentById(commentId);            
             return res.status(200).json(result);
         } catch (err) {
             return res.status(400).json({ message: err.message });

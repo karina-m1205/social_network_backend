@@ -22,8 +22,8 @@ app.use(express.text());
 app.post("/registration", usersRouter);
 app.post("/login", usersRouter);
 app.use("/users", auth.verifyToken, usersRouter);
-app.use("/posts",auth.verifyToken, postsRouter);
-app.use("/comments", commentsRouter);
+app.use("/posts", auth.verifyToken, postsRouter);
+app.use("/comments", auth.verifyToken, commentsRouter);
 // app.use("/feed", feedRouter);
 
 

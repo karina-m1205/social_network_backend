@@ -1,29 +1,37 @@
 // описать класс со статическими методами
 const path = require("path");
 const commentsModel = require(path.join(__dirname, "../models/comments.js"));
+const postsModel = require(path.join(__dirname, "../models/posts.js"));
 const { ObjectId } = require("bson");
+
 
 class CommentsSecvice {
     static async createComment(userid, commentdata) {
+        const postId = commentdata.postId;
+        let text = commentdata.text;
         const userId = userid;
-        const commentData = commentdata;
 
         const comment = {
             author: new ObjectId(userId),
-            text: commentData,
+            text: text,
             dateTime: new Date(),
             likes: 0
         }
 
         const newComment = new commentsModel(comment);
         const createdComment = await newComment.save();
+
+        const foundPost = await postsModel.updateOne(
+            { _id: postId },
+            { $push: { comments: createdComment.toObject()._id } }
+        );
         return createdComment.toObject();
     };
 
     static async getCommentById(commentid) {
         const commentId = commentid;
         const comment = await commentsModel.findById(commentId)
-        .populate({ path: "author" });
+            .populate({ path: "author" });
         if (!comment) {
             throw new Error("comment not found");
         }
@@ -72,7 +80,7 @@ class CommentsSecvice {
         if (!(new ObjectId(userId)).equals(foundComment.toObject().author)) {
             throw new Error("Unauthorized to delete this comment");
         };
-        const deletedComment = await commentsModel.findByIdAndDelete(commentId);           
+        const deletedComment = await commentsModel.findByIdAndDelete(commentId);
 
         return deletedComment.toObject();
     };
