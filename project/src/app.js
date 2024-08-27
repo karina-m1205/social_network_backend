@@ -26,7 +26,7 @@ app.use("/users", auth.verifyToken, usersRouter);
 app.use("/posts", auth.verifyToken, postsRouter);
 app.use("/comments", auth.verifyToken, commentsRouter);
 app.use("/likes", auth.verifyToken, likesRouter);
-// app.use("/feed", auth.verifyToken, feedRouter);
+app.use("/feed", auth.verifyToken, feedRouter);
 
 
 app.listen(PORT, () => {
