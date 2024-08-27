@@ -11,7 +11,7 @@ router.get("/", async (req, res) => {
         userFollowing.push(userId)
         try {
             const posts = await postsModel.find({ author: { $in: userFollowing } })
-            .populate("comments");
+                .populate("comments");
             return res.status(200).json({ posts: posts });
         } catch (err) {
             return res.status(400).json({ message: err.message });
