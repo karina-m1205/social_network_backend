@@ -29,7 +29,7 @@ app.use("/comments", auth.verifyToken, commentsRouter);
 app.use("/likes", auth.verifyToken, likesRouter);
 app.use("/feed", auth.verifyToken, feedRouter);
 app.post("/upload",auth.verifyToken,photoRouter);
-app.get("/cdn",auth.verifyToken,photoRouter);
+app.use("/cdn",auth.verifyToken,photoRouter);
 
 
 app.listen(PORT, () => {
