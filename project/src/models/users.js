@@ -29,7 +29,10 @@ const usersSchema = new Schema({
         ref: "users",
     },
     bio: String,
-    avatar: String,
+    avatar: {
+        type: Schema.Types.ObjectId,
+        ref: "photos",
+    },
 });
 
 const users = mongoose.model("users", usersSchema);

@@ -157,7 +157,8 @@ class UsersSecvice {
         const foundUser = await usersModel.findByIdAndDelete(userId)
             .populate("followers")
             .populate("following")
-            .populate("blocks");
+            .populate("blocks")
+            .populate("avatar");
         if (!foundUser) {
             throw new Error("user not found");
         }
