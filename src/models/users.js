@@ -30,7 +30,7 @@ const usersSchema = new Schema({
     },
     bio: String,
     avatar: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: "photos",
     },
 });

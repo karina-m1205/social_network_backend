@@ -6,6 +6,6 @@ const photoSchema = new Schema({
     contentType: String,
 });
 
-const photo = mongoose.model("photo", photoSchema);
+const photos = mongoose.model("photos", photoSchema);
 
-module.exports = photo;
+module.exports = photos;

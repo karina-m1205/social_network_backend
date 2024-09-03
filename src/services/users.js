@@ -1,5 +1,6 @@
 // описать класс со статическими методами
 const path = require("path");
+const mongoose = require("mongoose");
 const usersModel = require(path.join(__dirname, "../models/users.js"));
 const bcrypt = require(path.join(__dirname, "../core/bcrypt.js"));
 const { ObjectId } = require("bson");
@@ -87,7 +88,8 @@ class UsersSecvice {
         const user = await usersModel.findById({ _id: new ObjectId(userId) })
             .populate("followers")
             .populate("following")
-            .populate("blocks");
+            .populate("blocks")
+            .populate("avatar");
         if (!user) {
             throw new Error("user not found");
         }
