@@ -9,6 +9,7 @@ const likesRouter = require(path.join(__dirname, "./api/likes.js"));
 const feedRouter = require(path.join(__dirname, "./api/feed.js"));
 const photoRouter = require(path.join(__dirname,"./api/photo.js"));
 const auth = require(path.join(__dirname, "./core/auth.js"));
+const {redisClient} = require(path.join(__dirname, "./core/redis.js"))
 
 
 const app = express();
@@ -16,7 +17,12 @@ const PORT = process.env.PORT || 3000;
 
 connectToDB.then((db) => {
     console.log("connect to DB");
-})
+});
+
+(async () => {
+    await redisClient.connect();
+    console.log(`connect to redis`);
+})()
 
 
 app.use(express.json());
